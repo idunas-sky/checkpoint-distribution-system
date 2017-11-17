@@ -1,0 +1,33 @@
+<div class="card">
+    <div class="card-header">
+        <i class="m-icon">location_on</i>
+        <span>Checkpunkt: {{form.value.name}}</span>
+    </div>
+    <div class="card-content">
+        <form [formGroup]="form">
+            <div class="form-group">
+                <input id="id" type="text" formControlName="id">
+                <label for="id">ID</label>
+            </div>
+            <div class="form-group">
+                <input id="name" type="text" formControlName="name">
+                <label for="name">Name</label>
+            </div>
+            <div class="form-group">
+                <textarea id="remarks" formControlName="remarks"></textarea>
+                <label for="remarks">Bemerkungen</label>
+            </div>
+
+        </form>
+    </div>
+    <div class="card-footer clearfix">
+        <button routerLink="/locations">
+            <i class="m-icon">arrow_back</i>
+            <span>Zurück zur Übersicht</span>
+        </button>
+        <button (click)="save()" class="float-right" [disabled]="form.invalid">
+            <i class="m-icon">save</i>
+            <span>Speichern</span>
+        </button>
+    </div>
+</div>

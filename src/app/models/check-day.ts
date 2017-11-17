@@ -1,7 +1,7 @@
 import { Check } from "./check";
 
 export class CheckDay {
-    id: String;
+    id: string;
     day: Date;
     checks: Check[];
 }
