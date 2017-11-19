@@ -1,37 +1,15 @@
 <div class="card">
-  <div class="card-header">
-    <i class="m-icon">location_on</i>
-    <span>Checkpunkte</span>
-  </div>
-  <div class="card-content no-padding">
-    <table>
-      <tr>
-        <th>Name</th>
-        <th>Bemerkungen</th>
-        <th></th>
-      </tr>
-      <tr *ngFor="let element of locations">
-        <td>{{element.name}}</td>
-        <td>{{element.remarks}}</td>
-        <td class="buttons right">
-          <div class="button-row">
-            <button [routerLink]="['details', element.id]">
-              <i class="m-icon">edit</i>
-              <span>Bearbeiten</span>
-            </button>
-            <button (click)="delete(element)">
-              <i class="m-icon">delete</i>
-              <span>Löschen</span>
-            </button>
-          </div>
-        </td>
-      </tr>
-    </table>
-  </div>
-  <div class="card-footer">
-    <button routerLink="details">
-      <i class="m-icon">add_box</i>
-      <span>Neuer Checkpunkt</span>
-    </button>
-  </div>
+    <div class="card-header">
+        <i class="m-icon">location_on</i>
+        <span>Checkpunkte</span>
+    </div>
+    <div class="card-content no-padding">
+        <app-data-grid [configuration]="gridConfiguration" [dataSource]="locations"></app-data-grid>
+    </div>
+    <div class="card-footer">
+        <button routerLink="details">
+            <i class="m-icon">add_box</i>
+            <span>Neuer Checkpunkt</span>
+        </button>
+    </div>
 </div>

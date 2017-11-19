@@ -1,4 +1,4 @@
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { FakeCheckpointLocationService } from './services/mock/fake-checkpoint-location.service';
 import { DbCheckpointLocationService } from './services/db-checkpoint-location.service';
 import { FakeService } from './services/mock/fake.service';
@@ -18,7 +18,8 @@ import { AppComponent } from './app.component';
   ],
   imports: [
     BrowserModule,
-    RouterModule.forRoot(ROUTES, { enableTracing: true }),  
+    RouterModule.forRoot(ROUTES, { enableTracing: false }),  
+    FormsModule,
     ReactiveFormsModule
   ],
   providers: [

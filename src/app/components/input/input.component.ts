@@ -1,12 +1,13 @@
-import { isDigit } from '@angular/compiler/src/chars';
 import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR } from '@angular/forms';
 import {
     AfterViewInit,
     Component,
     ElementRef,
+    EventEmitter,
     forwardRef,
     Input,
     OnInit,
+    Output,
     Renderer,
     ViewChild,
     ViewEncapsulation,
@@ -47,6 +48,8 @@ export class InputComponent implements ControlValueAccessor, AfterViewInit {
     @Input() id: string;
     @Input() label: string;
     @Input() placeholder: string;
+
+    @Output() input: EventEmitter<any> = new EventEmitter<any>();
     // @Input() control: FormControl = new FormControl();
 
     @ViewChild('input') inputRef: ElementRef;
@@ -71,6 +74,8 @@ export class InputComponent implements ControlValueAccessor, AfterViewInit {
     public onChange(e: Event, value: any) {
         // Set changed value
         this.value = value;
+
+        // this.input.emit(value);
 
         // // Reset errors
         // this.errors = [];

@@ -1,3 +1,4 @@
+import { DataGridComponent } from './data-grid/data-grid.component';
 import { InputComponent } from './input/input.component';
 import {
     CheckpointLocationDetailsComponent,
@@ -11,5 +12,6 @@ export const ALL_COMPONENTS = [
     HomeComponent,
     CheckpointLocationListComponent,
     CheckpointLocationDetailsComponent,
-    InputComponent
+    InputComponent,
+    DataGridComponent
 ]

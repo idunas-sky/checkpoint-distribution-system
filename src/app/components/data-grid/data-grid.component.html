@@ -1,0 +1,31 @@
+<div class="container-fluid">
+    <input id="filter" type="text" #filter [(ngModel)]="filterValue" placeholder="Suchen ..." class="form-control form-control-sm">
+</div>
+<table>
+    <thead>
+        <tr>
+            <th *ngFor="let column of configuration.columns">{{column.title}}</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr class="warning center" *ngIf="filteredDataSource.length === 0">
+            <td [attr.colspan]="configuration.columns.length + 1">Keine Daten gefunden.</td>
+        </tr>
+        <tr *ngFor="let element of filteredDataSource">
+            <td *ngFor="let column of configuration.columns">{{element[column.property]}}</td>
+            <td class="buttons right">
+                <div class="button-row">
+                    <button [routerLink]="['details', element.id]">
+                        <i class="m-icon">edit</i>
+                        <span>Bearbeiten</span>
+                    </button>
+                    <button (click)="delete(element)">
+                        <i class="m-icon">delete</i>
+                        <span>Löschen</span>
+                    </button>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>
