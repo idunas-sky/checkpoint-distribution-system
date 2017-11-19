@@ -1,3 +1,4 @@
+import { InputComponent } from './input/input.component';
 import {
     CheckpointLocationDetailsComponent,
 } from './checkpoint-location/details/checkpoint-location-details.component';
@@ -9,5 +10,6 @@ export const ALL_COMPONENTS = [
     NavbarComponent,
     HomeComponent,
     CheckpointLocationListComponent,
-    CheckpointLocationDetailsComponent
+    CheckpointLocationDetailsComponent,
+    InputComponent
 ]

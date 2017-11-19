@@ -3,21 +3,11 @@
         <i class="m-icon">location_on</i>
         <span>Checkpunkt: {{form.value.name}}</span>
     </div>
-    <div class="card-content">
+    <div class="card-content container-fluid">
         <form [formGroup]="form">
-            <div class="form-group">
-                <input id="id" type="text" formControlName="id">
-                <label for="id">ID</label>
-            </div>
-            <div class="form-group">
-                <input id="name" type="text" formControlName="name">
-                <label for="name">Name</label>
-            </div>
-            <div class="form-group">
-                <textarea id="remarks" formControlName="remarks"></textarea>
-                <label for="remarks">Bemerkungen</label>
-            </div>
-
+            <app-input type="text" id="id" label="ID" formControlName="id"></app-input>
+            <app-input type="text" id="name" label="Name" formControlName="name"></app-input>
+            <app-input type="textarea" id="remarks" label="Bemerkungen" formControlName="remarks"></app-input>
         </form>
     </div>
     <div class="card-footer clearfix">

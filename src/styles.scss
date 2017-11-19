@@ -1,29 +1,27 @@
 /* You can add global styles to this file, and also import other style files */
+
 // @import "~assets/css/bootstrap-reboot.css";
 @import "~assets/css/_mixins";
+@import "~assets/css/_grid";
 @import "~assets/css/_util";
 @import "~assets/css/_layout";
 @import "~assets/css/_forms";
 // @import "~@angular/material/prebuilt-themes/indigo-pink.css";
-
-
 @font-face {
     font-family: 'Material Icons';
     font-style: normal;
     font-weight: 400;
-    src: url(~material-design-icons/iconfont/MaterialIcons-Regular.eot); /* For IE6-8 */
-    src: local('Material Icons'),
-      local('MaterialIcons-Regular'),
-      url(~material-design-icons/iconfont/MaterialIcons-Regular.woff2) format('woff2'),
-      url(~material-design-icons/iconfont/MaterialIcons-Regular.woff) format('woff'),
-      url(~material-design-icons/iconfont/MaterialIcons-Regular.ttf) format('truetype');
-  }
+    src: url(~material-design-icons/iconfont/MaterialIcons-Regular.eot);
+    /* For IE6-8 */
+    src: local('Material Icons'), local('MaterialIcons-Regular'), url(~material-design-icons/iconfont/MaterialIcons-Regular.woff2) format('woff2'), url(~material-design-icons/iconfont/MaterialIcons-Regular.woff) format('woff'), url(~material-design-icons/iconfont/MaterialIcons-Regular.ttf) format('truetype');
+}
 
-  .m-icon {
+.m-icon {
     font-family: 'Material Icons';
     font-weight: normal;
     font-style: normal;
-    font-size: 24px;  /* Preferred icon size */
+    font-size: 24px;
+    /* Preferred icon size */
     display: inline-block;
     line-height: 1;
     text-transform: none;
@@ -31,29 +29,30 @@
     word-wrap: normal;
     white-space: nowrap;
     direction: ltr;
-  
     /* Support for all WebKit browsers. */
     -webkit-font-smoothing: antialiased;
     /* Support for Safari and Chrome. */
     text-rendering: optimizeLegibility;
-  
     /* Support for Firefox. */
     -moz-osx-font-smoothing: grayscale;
-  
     /* Support for IE. */
     font-feature-settings: 'liga';
-  }
+}
 
+.m-icon.sm {
+    font-size: 18px;
+}
 
-  .m-icon.sm { font-size: 18px; }
-  .m-icon.md { font-size: 36px; }
-  .m-icon.lg { font-size: 48px; }
+.m-icon.md {
+    font-size: 36px;
+}
 
-  // a.mat-button:hover, a.mat-button:focus {
-  //   color: inherit;
-  //   text-decoration: none;
-  // }
-
-  // mat-form-field.mat-form-field {
-  //   display: block;
-  // }
+.m-icon.lg {
+    font-size: 48px;
+} // a.mat-button:hover, a.mat-button:focus {
+//   color: inherit;
+//   text-decoration: none;
+// }
+// mat-form-field.mat-form-field {
+//   display: block;
+// }
