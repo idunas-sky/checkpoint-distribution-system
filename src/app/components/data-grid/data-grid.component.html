@@ -16,11 +16,11 @@
             <td *ngFor="let column of configuration.columns">{{element[column.property]}}</td>
             <td class="buttons right">
                 <div class="button-row">
-                    <button [routerLink]="['details', element.id]">
+                    <button (click)="edit(element)">
                         <i class="m-icon">edit</i>
                         <span>Bearbeiten</span>
                     </button>
-                    <button (click)="delete(element)">
+                    <button (click)="showDeleteDialog(element)">
                         <i class="m-icon">delete</i>
                         <span>Löschen</span>
                     </button>
@@ -29,3 +29,12 @@
         </tr>
     </tbody>
 </table>
+
+<app-dialog #deleteDialog title="Sind Sie sicher?" [isOpen]="elementToDelete" (closed)="elementToDelete = null">
+    <p>Soll das Objekt
+        <b>{{elementToDelete ? elementToDelete[configuration.titleProperty] : ''}}</b> wirklich gelöscht werden?</p>
+    <div class="right">
+        <button tabindex="2" color="warn" (click)="delete(elementToDelete)">Löschen</button>
+        <button tabindex="1" (click)="deleteDialog.closeDialog()">Abbrechen</button>
+    </div>
+</app-dialog>

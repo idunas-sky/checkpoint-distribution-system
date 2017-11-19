@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { DbCheckpointLocationService } from '../../../services/db-checkpoint-location.service';
 import { CheckpointLocation } from '../../../models/checkpoint-location';
@@ -17,33 +18,23 @@ export class CheckpointLocationListComponent implements OnInit {
             new DataGridColumn('name', 'Name'),
             new DataGridColumn('remarks', 'Bemerkungen')
         ],
+        titleProperty: 'name',
         filterFunc: (dataSource, filter) => {
             return dataSource.filter(item => item.name.toLowerCase().indexOf(filter) >= 0);
-        }
+        },
+        editFunc: element => this._router.navigate(['/locations/details', element.id]),
+        deleteFunc: element => this._db.delete(element.id)
     });
 
     public locations: CheckpointLocation[] = [];
 
-    constructor(private _db: DbCheckpointLocationService) {
+    constructor(
+        private _db: DbCheckpointLocationService,
+        private _router: Router) {
     }
 
     public ngOnInit() {
         this.loadData();
-    }
-
-    public delete(element: CheckpointLocation) {
-        // let dialogRef = this._dialog.open(DeleteDialogComponent, {
-        //   width: '250px',
-        //   data: { id: element.id, name: element.name, delete: false }
-        // });
-
-        // dialogRef.afterClosed().subscribe(result => {
-        //   if (result) {
-        //     this._db.delete(result);
-        //     this._dataSource = this._dataSource.filter(item => item.id !== result);
-        //     this.dataSource.data = this._dataSource;
-        //   }
-        // });
     }
 
     private loadData(filter?: string) {
