@@ -3,12 +3,12 @@
         <i class="m-icon">location_on</i>
         <span>Checkpunkt: {{form.value.name}}</span>
     </div>
-    <div class="card-content container-fluid">
-        <form [formGroup]="form">
+    <div class="card-content">
+        <app-form [formGroup]="form">
             <app-input type="text" id="id" label="ID" formControlName="_id"></app-input>
             <app-input type="text" id="name" label="Name" formControlName="name"></app-input>
             <app-input type="textarea" id="remarks" label="Bemerkungen" formControlName="remarks"></app-input>
-        </form>
+        </app-form>
     </div>
     <div class="card-footer clearfix">
         <button routerLink="/locations">

@@ -1,9 +1,7 @@
-<div class="form-group row">
-    <label for="{{id}}" class="col-md-2 col-form-label">{{label}}</label>
-    <div class="col-md-10" [ngSwitch]="type">
-        <textarea *ngSwitchCase="'textarea'" id="{{id}}" #textarea placeholder="{{placeholder}}" (input)="onChange($event, textarea.value)"
-            class="form-control form-control-sm">{{value}}</textarea>
-        <input *ngSwitchDefault id="{{id}}" #input type="{{type}}" placeholder="{{placeholder}}" value="{{value}}" (input)="onChange($event, input.value)"
-            class="form-control form-control-sm">
+<li>
+    <label for="{{id}}">{{label}}</label>
+    <div [ngSwitch]="type">
+        <textarea *ngSwitchCase="'textarea'" id="{{id}}" #textarea placeholder="{{placeholder}}" (input)="onChange($event, textarea.value)">{{value}}</textarea>
+        <input *ngSwitchDefault id="{{id}}" #input type="{{type}}" placeholder="{{placeholder}}" value="{{value}}" (input)="onChange($event, input.value)">
     </div>
-</div>
+</li>

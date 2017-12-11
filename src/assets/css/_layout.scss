@@ -17,10 +17,16 @@ table {
 $card-border-color: #ddd;
 $card-padding-large: 16px;
 $card-padding-small: 6px;
+
+.card-container {
+    padding: 0 $card-padding-large;
+}
+
 .card {
     background: #fff;
     border: solid 1px $card-border-color;
     border-radius: 2px;
+
     & .card-header {
         position: relative;
         background-color: #f6f6f6;
@@ -29,43 +35,54 @@ $card-padding-small: 6px;
         font-weight: bold;
         font-size: 16px;
         line-height: 30px;
+
         & .m-icon {
             position: absolute;
             top: 50%;
             margin-top: -12px;
             margin-left: -5px;
-            +span {
+
+            + span {
                 margin-left: 24px;
             }
         }
     }
+
     & .card-content {
         padding: $card-padding-large;
         overflow: auto;
+        position: relative;
+
         &.no-padding {
             padding: 0;
         }
+
         & table {
             & th {
                 text-align: left;
             }
+
             & th,
             & td {
                 line-height: 38px;
                 padding: 0 $card-padding-large;
                 border-bottom: solid 1px $card-border-color;
+
                 &.buttons {
                     line-height: 0;
+
                     &.right {
                         padding-right: 5px;
                     }
                 }
             }
+
             & tr:last-child td {
                 border-bottom: none;
             }
         }
     }
+
     & .card-footer {
         position: relative;
         background-color: #f6f6f6;
@@ -92,25 +109,30 @@ button {
     &:hover:not(:disabled) {
         background-color: #e9ebee;
     }
+
     &:active:not(:disabled) {
         background-color: #dddfe2;
         border-color: #bec2c9;
     }
+
     &:focus {
         outline: none;
     }
+
     &:disabled {
         cursor: default;
         background-color: #e6e6e6;
         color: #aaa;
     }
+
     & i.m-icon {
         position: absolute;
         left: 5px;
         font-size: 18px;
         top: 50%;
         margin-top: -9px;
-        +span {
+
+        + span {
             margin-left: 18px;
         }
     }
@@ -119,20 +141,24 @@ button {
 .button-row {
     display: inline-flex;
     white-space: nowrap;
+
     & button {
         flex: 0 1 auto;
         top: 0;
+
         &:not(:first-child) {
             border-top-left-radius: 0;
             border-bottom-left-radius: 0;
         }
+
         &:not(:last-child) {
             border-top-right-radius: 0;
             border-bottom-right-radius: 0;
             border-right: none;
         }
     }
+
     &:after {
-        @include clearfix();
+        @include clearfix;
     }
 }

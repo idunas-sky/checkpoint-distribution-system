@@ -50,7 +50,6 @@ export class InputComponent implements ControlValueAccessor, AfterViewInit {
     @Input() placeholder: string;
 
     @Output() input: EventEmitter<any> = new EventEmitter<any>();
-    // @Input() control: FormControl = new FormControl();
 
     @ViewChild('input') inputRef: ElementRef;
     @ViewChild('textarea') textareaRef: ElementRef;

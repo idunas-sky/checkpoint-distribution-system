@@ -7,6 +7,7 @@ import {
 import { HomeComponent } from './home/home.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { CheckpointLocationListComponent } from './checkpoint-location/list/checkpoint-location-list.component';
+import { FormComponent } from './form/form.component';
 
 export const ALL_COMPONENTS = [
     NavbarComponent,
@@ -15,5 +16,6 @@ export const ALL_COMPONENTS = [
     CheckpointLocationDetailsComponent,
     InputComponent,
     DataGridComponent,
-    DialogComponent
+    DialogComponent,
+    FormComponent
 ]
