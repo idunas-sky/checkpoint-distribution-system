@@ -1,8 +1,8 @@
+import { CheckpointLocationService } from '../../../services/db/checkpoint-location.services';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { CheckpointLocation } from '../../../models/checkpoint-location';
-import { DbCheckpointLocationService } from '../../../services/db-checkpoint-location.service';
 
 @Component({
     selector: 'app-checkpoint-location-details',
@@ -17,14 +17,14 @@ export class CheckpointLocationDetailsComponent implements OnInit {
     constructor(
         private _route: ActivatedRoute,
         private _router: Router,
-        private _db: DbCheckpointLocationService,
+        private _db: CheckpointLocationService,
         private _formBuilder: FormBuilder) {
         this.createForm();
     }
 
     private createForm() {
         this.form = this._formBuilder.group({
-            id: new FormControl({ value: '', disabled: true }),
+            _id: new FormControl({ value: '', disabled: true }),
             name: ['', Validators.required],
             remarks: ''
         })
@@ -32,7 +32,7 @@ export class CheckpointLocationDetailsComponent implements OnInit {
 
     public ngOnInit() {
         this._route.paramMap.subscribe(map => {
-            const id = map.get('id');
+            const id = +map.get('id');
 
             if (id) {
                 // Edit location
@@ -50,7 +50,8 @@ export class CheckpointLocationDetailsComponent implements OnInit {
 
     public save() {
         this._location = Object.assign(this._location, this.form.value);
-        this._db.addOrUpdate(this._location);
-        this._router.navigate(['/locations']);
+        this._db.addOrUpdate(this._location).subscribe( _ => {
+            this._router.navigate(['/locations']);
+        });
     }
 }

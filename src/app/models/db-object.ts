@@ -1,3 +1,4 @@
-export interface IDbObject{
-    id: string;
+export interface IDbObject {
+    _id: number;
+    // _rev: string;
 }

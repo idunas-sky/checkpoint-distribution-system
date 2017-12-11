@@ -1,10 +1,11 @@
+import { IndexedDbService } from '../../../services/db/indexed-db.service';
+import { GeoLocation } from '../../../models/geo-location';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { DbCheckpointLocationService } from '../../../services/db-checkpoint-location.service';
 import { CheckpointLocation } from '../../../models/checkpoint-location';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FakeCheckpointLocationService } from '../../../services/mock/fake-checkpoint-location.service';
 import { DataGridColumn, DataGridConfguration } from '../../data-grid/data-grid-configuration';
+import { CheckpointLocationService } from '../../../services/db/checkpoint-location.services';
 
 @Component({
     selector: 'app-checkpoint-location-list',
@@ -22,14 +23,14 @@ export class CheckpointLocationListComponent implements OnInit {
         filterFunc: (dataSource, filter) => {
             return dataSource.filter(item => item.name.toLowerCase().indexOf(filter) >= 0);
         },
-        editFunc: element => this._router.navigate(['/locations/details', element.id]),
-        deleteFunc: element => this._db.delete(element.id)
+        editFunc: element => this._router.navigate(['/locations/details', element._id]),
+        deleteFunc: element => this._db.delete(element._id)
     });
 
     public locations: CheckpointLocation[] = [];
 
     constructor(
-        private _db: DbCheckpointLocationService,
+        private _db: CheckpointLocationService,
         private _router: Router) {
     }
 
@@ -38,6 +39,8 @@ export class CheckpointLocationListComponent implements OnInit {
     }
 
     private loadData(filter?: string) {
-        this._db.getList().subscribe(values => this.locations = values);
+        this._db.getList().subscribe(values => {
+            this.locations = values;
+        });
     }
 }

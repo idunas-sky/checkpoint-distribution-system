@@ -2,7 +2,7 @@ import { IDbObject } from './db-object';
 import { GeoLocation } from './geo-location';
 
 export class CheckpointLocation implements IDbObject {
-    id: string;
+    _id: number;
     name: string;
     remarks?: string;
     location: GeoLocation;
