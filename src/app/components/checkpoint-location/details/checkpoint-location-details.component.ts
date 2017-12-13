@@ -1,8 +1,10 @@
-import { CheckpointLocationService } from '../../../services/db/checkpoint-location.services';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
-import { CheckpointLocation } from '../../../models/checkpoint-location';
+import {CheckpointLocationService} from '../../../services/db/checkpoint-location.services';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {ActivatedRoute, Router} from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {CheckpointLocation} from '../../../models/checkpoint-location';
+import {MapClickEventArgs} from "../../map/map-click.event-args";
+import {GeoLocation} from "../../../models/geo-location";
 
 @Component({
     selector: 'app-checkpoint-location-details',
@@ -14,18 +16,21 @@ export class CheckpointLocationDetailsComponent implements OnInit {
     private _location: CheckpointLocation;
     public form: FormGroup;
 
-    constructor(
-        private _route: ActivatedRoute,
-        private _router: Router,
-        private _db: CheckpointLocationService,
-        private _formBuilder: FormBuilder) {
+    constructor(private _route: ActivatedRoute,
+                private _router: Router,
+                private _db: CheckpointLocationService,
+                private _formBuilder: FormBuilder) {
         this.createForm();
     }
 
     private createForm() {
         this.form = this._formBuilder.group({
-            _id: new FormControl({ value: '', disabled: true }),
+            _id: new FormControl({value: '', disabled: true}),
             name: ['', Validators.required],
+            location: this._formBuilder.group({
+                latitude: new FormControl({value: '', disabled: true}),
+                longitude: new FormControl({value: '', disabled: true})
+            }),
             remarks: ''
         })
     }
@@ -48,9 +53,14 @@ export class CheckpointLocationDetailsComponent implements OnInit {
         })
     }
 
+    public onMapClick(args: MapClickEventArgs) {
+        this._location.location = new GeoLocation(args.latitude, args.longitude);
+        this.form.patchValue(this._location);
+    }
+
     public save() {
         this._location = Object.assign(this._location, this.form.value);
-        this._db.addOrUpdate(this._location).subscribe( _ => {
+        this._db.addOrUpdate(this._location).subscribe(_ => {
             this._router.navigate(['/locations']);
         });
     }

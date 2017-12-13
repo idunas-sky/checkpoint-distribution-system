@@ -20,7 +20,8 @@
       "prefix": "app",
       "styles": [
         "styles.scss",
-        "assets/css/fonts/open-sans/open-sans.scss"
+        "assets/css/fonts/open-sans/open-sans.scss",
+        "../node_modules/leaflet/dist/leaflet.js"
       ],
       "scripts": [],
       "environmentSource": "environments/environment.ts",
