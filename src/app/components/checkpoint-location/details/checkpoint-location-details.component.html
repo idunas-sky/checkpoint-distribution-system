@@ -7,17 +7,17 @@
         <div class="col">
             <app-form [formGroup]="form">
                 <app-input type="text" id="id" label="ID" formControlName="_id"></app-input>
-                <app-input type="text" id="name" label="Name" formControlName="name"></app-input>
                 <span formGroupName="location">
-                    <app-input type="text" id="latitude" label="Latitude" formControlName="latitude"></app-input>
-                    <app-input type="text" id="longitude" label="Longitude" formControlName="longitude"></app-input>
+                    <app-input type="text" id="latitude" label="Latitude" formControlName="latitude" [readonly]="true"></app-input>
+                    <app-input type="text" id="longitude" label="Longitude" formControlName="longitude" [readonly]="true"></app-input>
                 </span>
+                <app-input type="text" id="name" label="Name" formControlName="name"></app-input>
                 <app-input type="textarea" id="remarks" label="Bemerkungen" formControlName="remarks"></app-input>
 
             </app-form>
         </div>
         <div class="col">
-            <app-map (locationSelected)="onMapClick($event)"></app-map>
+            <app-map *ngIf="location" (locationSelected)="onMapClick($event)" [startLocation]="location.location"></app-map>
         </div>
     </div>
     <div class="card-footer clearfix">
@@ -25,7 +25,7 @@
             <i class="m-icon">arrow_back</i>
             <span>Zurück zur Übersicht</span>
         </button>
-        <button (click)="save()" class="float-right" [disabled]="form.invalid">
+        <button (click)="save()" class="float-right" [disabled]="form.invalid || form.pristine">
             <i class="m-icon">save</i>
             <span>Speichern</span>
         </button>

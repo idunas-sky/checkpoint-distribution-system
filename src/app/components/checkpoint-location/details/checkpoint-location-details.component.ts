@@ -1,10 +1,10 @@
-import {CheckpointLocationService} from '../../../services/db/checkpoint-location.services';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {ActivatedRoute, Router} from '@angular/router';
-import {Component, OnInit} from '@angular/core';
-import {CheckpointLocation} from '../../../models/checkpoint-location';
-import {MapClickEventArgs} from "../../map/map-click.event-args";
-import {GeoLocation} from "../../../models/geo-location";
+import { CheckpointLocationService } from '../../../services/db/checkpoint-location.services';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { CheckpointLocation } from '../../../models/checkpoint-location';
+import { MapClickEventArgs } from "../../map/map-click.event-args";
+import { GeoLocation } from "../../../models/geo-location";
 
 @Component({
     selector: 'app-checkpoint-location-details',
@@ -13,23 +13,23 @@ import {GeoLocation} from "../../../models/geo-location";
 })
 export class CheckpointLocationDetailsComponent implements OnInit {
 
-    private _location: CheckpointLocation;
+    public location: CheckpointLocation;
     public form: FormGroup;
 
     constructor(private _route: ActivatedRoute,
-                private _router: Router,
-                private _db: CheckpointLocationService,
-                private _formBuilder: FormBuilder) {
+        private _router: Router,
+        private _db: CheckpointLocationService,
+        private _formBuilder: FormBuilder) {
         this.createForm();
     }
 
     private createForm() {
         this.form = this._formBuilder.group({
-            _id: new FormControl({value: '', disabled: true}),
+            _id: new FormControl({ value: '', disabled: true }),
             name: ['', Validators.required],
             location: this._formBuilder.group({
-                latitude: new FormControl({value: '', disabled: true}),
-                longitude: new FormControl({value: '', disabled: true})
+                latitude: '',
+                longitude: ''
             }),
             remarks: ''
         })
@@ -42,25 +42,26 @@ export class CheckpointLocationDetailsComponent implements OnInit {
             if (id) {
                 // Edit location
                 this._db.get(id).subscribe(location => {
-                    this._location = location;
-                    this.form.patchValue(this._location);
+                    this.location = location;
+                    this.form.patchValue(this.location);
                 });
             } else {
                 // New location
-                this._location = new CheckpointLocation();
-                this.form.reset(this._location);
+                this.location = new CheckpointLocation();
+                this.form.reset(this.location);
             }
         })
     }
 
     public onMapClick(args: MapClickEventArgs) {
-        this._location.location = new GeoLocation(args.latitude, args.longitude);
-        this.form.patchValue(this._location);
+        this.location.location = new GeoLocation(args.latitude, args.longitude);
+        this.form.patchValue(this.location);
+        this.form.controls['location'].markAsDirty();
     }
 
     public save() {
-        this._location = Object.assign(this._location, this.form.value);
-        this._db.addOrUpdate(this._location).subscribe(_ => {
+        this.location = Object.assign(this.location, this.form.value);
+        this._db.addOrUpdate(this.location).subscribe(_ => {
             this._router.navigate(['/locations']);
         });
     }

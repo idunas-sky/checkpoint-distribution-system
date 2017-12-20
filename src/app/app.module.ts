@@ -8,12 +8,14 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { CheckpointLocationService } from './services/db/checkpoint-location.services';
 import { ALL_SERVICES } from './services/index';
+import { SettingsComponent } from './components/settings/settings.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    ...ALL_COMPONENTS
+    ...ALL_COMPONENTS,
+    SettingsComponent
   ],
   imports: [
     BrowserModule,

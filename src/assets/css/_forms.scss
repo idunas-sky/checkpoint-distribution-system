@@ -57,7 +57,7 @@ input, select, textarea {
     font-size: 14px;
     box-sizing: border-box;
 
-    &:disabled {
+    &:disabled, &:read-only {
         background-color: #eaeaea;
         color: #888;
     }

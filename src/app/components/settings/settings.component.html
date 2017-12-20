@@ -1,0 +1,18 @@
+<div class="card">
+    <div class="card-header">
+        <i class="m-icon">settings</i>
+        <span>Einstellungen</span>
+    </div>
+    <div class="card-content">
+        <app-form [formGroup]="form">
+            <app-input type="text" id="mapUrl" label="Map Url" formControlName="mapUrl"></app-input>
+            <app-input type="text" id="mapAccessToken" label="Map Access token" formControlName="mapAccessToken"></app-input>
+        </app-form>
+    </div>
+    <div class="card-footer clearfix">
+        <button (click)="save()" class="float-right" [disabled]="form.invalid || form.pristine">
+            <i class="m-icon">save</i>
+            <span>Speichern</span>
+        </button>
+    </div>
+</div>

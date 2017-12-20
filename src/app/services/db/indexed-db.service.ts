@@ -1,4 +1,4 @@
-import { DbSchema, SCHEMA } from './schema';
+import { DbObjectStoreInfo, DbSchema, SCHEMA } from './schema';
 import { LogService } from '../log.service';
 import { from } from 'rxjs/observable/from';
 import { makePropDecorator } from '@angular/core/src/util/decorators';
@@ -222,7 +222,7 @@ export class IndexedDbService {
         for (const storeInfo of this._schema.stores) {
             if (!db.objectStoreNames.contains(storeInfo.name)) {
                 this._log.info(`[DB] Creating object-store '${storeInfo.name}'`);
-                this._createObjectStore(db, storeInfo.name, '_id');
+                this._createObjectStore(db, storeInfo, '_id');
             }
             else {
                 this._log.info(`[DB] Skipping creation of object-store '${storeInfo.name}', does already exist`);
@@ -230,8 +230,8 @@ export class IndexedDbService {
         }
     }
 
-    private _createObjectStore(db: IDBDatabase, storeName: string, primaryKey: string) {
-        db.createObjectStore(storeName, { autoIncrement: true, keyPath: primaryKey });
+    private _createObjectStore(db: IDBDatabase, storeInfo: DbObjectStoreInfo, primaryKey: string) {
+        db.createObjectStore(storeInfo.name, { autoIncrement: storeInfo.autoIncrement, keyPath: primaryKey });
     }
 
     private _mapRecord(storeName: string, record: IDbObject): IDbObject {

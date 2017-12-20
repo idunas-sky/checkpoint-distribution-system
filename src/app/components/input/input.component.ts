@@ -48,7 +48,7 @@ export class InputComponent implements ControlValueAccessor, AfterViewInit {
     @Input() id: string;
     @Input() label: string;
     @Input() placeholder: string;
-
+    @Input() readonly: boolean;
     @Output() input: EventEmitter<any> = new EventEmitter<any>();
 
     @ViewChild('input') inputRef: ElementRef;
