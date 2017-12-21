@@ -17,7 +17,7 @@
             </app-form>
         </div>
         <div class="col">
-            <app-map *ngIf="location" (locationSelected)="onMapClick($event)" [startLocation]="location.location"></app-map>
+            <app-map #map (locationSelected)="onMapClick($event)"></app-map>
         </div>
     </div>
     <div class="card-footer clearfix">

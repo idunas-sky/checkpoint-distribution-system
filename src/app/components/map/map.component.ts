@@ -3,6 +3,12 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import * as L from 'leaflet';
 import { MapClickEventArgs } from "./map-click.event-args";
 import { SettingsService } from '../../services/db/settings.service';
+import { AfterViewInit } from '@angular/core/src/metadata/lifecycle_hooks';
+
+export enum MapMarkerMode {
+    Single,
+    Multiple
+}
 
 @Component({
     selector: 'app-map',
@@ -11,8 +17,9 @@ import { SettingsService } from '../../services/db/settings.service';
 })
 export class MapComponent implements OnInit {
     private _map: L.Map;
-    private _marker: L.Marker;
+    private _markers: L.Marker[] = [];
 
+    @Input() public markerMode: MapMarkerMode;
     @Input() public startLocation: GeoLocation;
     @Output() public locationSelected = new EventEmitter<MapClickEventArgs>();
 
@@ -23,12 +30,11 @@ export class MapComponent implements OnInit {
         this._map = L.map('map');
 
         if (this.startLocation) {
-            this._setMarker(this.startLocation.latitude, this.startLocation.longitude);
-            this._map.setView([this.startLocation.latitude, this.startLocation.longitude], 16);
+            this.setViewLocation(this.startLocation, 16);
         }
         else {
             // TODO: Make default location configurable
-            this._map.setView([48.88, 8.89], 11);
+            this.setViewLocation(new GeoLocation(48.88, 8.89), 11);
         }
 
 
@@ -44,19 +50,24 @@ export class MapComponent implements OnInit {
         });
 
         this._map.addEventListener('click', (e: L.LeafletMouseEvent) => {
-            this._setMarker(e.latlng.lat, e.latlng.lng);
+            this.setMarker(new GeoLocation(e.latlng.lat, e.latlng.lng));
             this.locationSelected.emit(new MapClickEventArgs(e));
         });
     }
 
-    private _setMarker(latitude: number, longitude: number) {
-        // Set a new marker if none is active
-        if (!this._marker) {
-            this._marker = L.marker([latitude, longitude]).addTo(this._map)
+    public setViewLocation(location: GeoLocation, zoomLevel: number) {
+        this._map.setView([location.latitude, location.longitude], zoomLevel);
+    }
+
+    public setMarker(location: GeoLocation) {
+        if (this.markerMode === MapMarkerMode.Single && this._markers.length > 0) {
+            // A marker already exists and we are in single-mode,
+            // thus we need to move the existing marker
+            this._markers[0].setLatLng(L.latLng(location.latitude, location.longitude));
             return;
         }
 
-        // Move the active marker otherwise
-        this._marker.setLatLng(L.latLng(latitude, longitude));
+        // In all other cases we can safely add a new marker
+        this._markers.push(L.marker([location.latitude, location.longitude]).addTo(this._map));
     }
 }
