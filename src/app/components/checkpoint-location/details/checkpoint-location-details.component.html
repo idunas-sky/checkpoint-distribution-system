@@ -7,6 +7,8 @@
         <div class="col">
             <app-form [formGroup]="form">
                 <app-input type="text" id="id" label="ID" formControlName="_id"></app-input>
+                <app-input type="date" id="createOn" label="Erstellt" formControlName="_createdOn"></app-input>
+                <app-input type="date" id="lastModifiedOn" label="Geändert" formControlName="_lastModifiedOn"></app-input>
                 <span formGroupName="location">
                     <app-input type="text" id="latitude" label="Latitude" formControlName="latitude" [readonly]="true"></app-input>
                     <app-input type="text" id="longitude" label="Longitude" formControlName="longitude" [readonly]="true"></app-input>

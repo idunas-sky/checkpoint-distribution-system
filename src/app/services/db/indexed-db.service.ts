@@ -5,7 +5,7 @@ import { makePropDecorator } from '@angular/core/src/util/decorators';
 import { mergeMap } from 'rxjs/operator/mergeMap';
 import { JSONP_ERR_WRONG_RESPONSE_TYPE } from '@angular/common/http/src/jsonp';
 import { observable } from 'rxjs/symbol/observable';
-import { IDbObject } from '../../models/db-object';
+import { DbObject } from '../../models/db-object';
 import { Observable, Observer } from 'rxjs/Rx';
 import { Injectable } from '@angular/core';
 import { ERROR_COLLECTOR_TOKEN } from '@angular/platform-browser-dynamic/src/compiler_factory';
@@ -21,7 +21,7 @@ export class IndexedDbService {
         }
     }
 
-    public get<T extends IDbObject>(storeName: string, id: number): Observable<T> {
+    public get<T extends DbObject>(storeName: string, id: number): Observable<T> {
         const openRequest = this._openOrCreateDb();
         const getRequest = (db: IDBDatabase) => {
             return Observable.create((observer: Observer<any>) => {
@@ -69,7 +69,7 @@ export class IndexedDbService {
         return openRequest.flatMap(countRequest);
     }
 
-    public query<T extends IDbObject>(storeName: string, predicate?: (obj: T) => boolean): Observable<T[]> {
+    public query<T extends DbObject>(storeName: string, predicate?: (obj: T) => boolean): Observable<T[]> {
         const openRequest = this._openOrCreateDb();
         const queryRequest = (db: IDBDatabase) => {
             return Observable.create((observer: Observer<any>) => {
@@ -108,12 +108,19 @@ export class IndexedDbService {
         return openRequest.flatMap(queryRequest);
     }
 
-    public insertOrUpdate<T extends IDbObject>(storeName: string, record: T): Observable<T> {
+    public insertOrUpdate<T extends DbObject>(storeName: string, record: T): Observable<T> {
         const openRequest = this._openOrCreateDb();
         const insertRequest = (db: IDBDatabase) => {
             return Observable.create((observer: Observer<any>) => {
                 const that = this;
                 const objStore = this._getObjectStore(db, storeName, observer, 'readwrite');
+
+                // Set creation / modification date
+                if (record._id > 0) {
+                    record._lastModifiedOn = new Date();
+                } else {
+                    record._createdOn = new Date();
+                }
 
                 this._log.info(`[DB] ${record._id > 0 ? 'Updating' : 'Inserting'} record ...`);
                 const putRequest = objStore.put(record);
@@ -234,7 +241,7 @@ export class IndexedDbService {
         db.createObjectStore(storeInfo.name, { autoIncrement: storeInfo.autoIncrement, keyPath: primaryKey });
     }
 
-    private _mapRecord(storeName: string, record: IDbObject): IDbObject {
+    private _mapRecord(storeName: string, record: DbObject): DbObject {
         const storeDefinition = this._schema.stores.find(store => store.name == store.name);
         if (!storeDefinition || !storeDefinition.mappingFunc) {
             return record;

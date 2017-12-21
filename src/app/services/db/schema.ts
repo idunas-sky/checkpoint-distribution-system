@@ -1,6 +1,6 @@
 import {CheckpointLocationService} from './checkpoint-location.services';
 import {constructDependencies} from '@angular/core/src/di/reflective_provider';
-import {IDbObject} from '../../models/db-object';
+import {DbObject} from '../../models/db-object';
 import {CheckpointLocation} from '../../models/checkpoint-location';
 
 export class DbSchema {
@@ -15,7 +15,7 @@ export class DbSchema {
 
 export class DbObjectStoreInfo {
     name: string;
-    mappingFunc: (obj: IDbObject) => IDbObject;
+    mappingFunc: (obj: DbObject) => DbObject;
     autoIncrement: boolean = true;
 
     constructor(init?: Partial<DbObjectStoreInfo>) {

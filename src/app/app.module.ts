@@ -9,7 +9,8 @@ import { AppComponent } from './app.component';
 import { CheckpointLocationService } from './services/db/checkpoint-location.services';
 import { ALL_SERVICES } from './services/index';
 import { SettingsComponent } from './components/settings/settings.component';
-
+import { MomentModule } from 'angular2-moment';
+import 'moment/locale/de';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { SettingsComponent } from './components/settings/settings.component';
     BrowserModule,
     RouterModule.forRoot(ROUTES, { enableTracing: false }),  
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MomentModule
   ],
   providers: [
       ...ALL_SERVICES

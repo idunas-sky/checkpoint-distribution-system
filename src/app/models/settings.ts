@@ -1,7 +1,6 @@
-import {IDbObject} from "./db-object";
+import {DbObject} from "./db-object";
 
-export class Settings implements IDbObject {
-    _id: number;
+export class Settings extends DbObject {
     mapUrl: string;
     mapAccessToken: string;
 }

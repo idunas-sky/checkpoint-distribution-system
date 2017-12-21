@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 import { IndexedDbService } from './indexed-db.service';
-import { IDbObject } from '../../models/db-object';
+import { DbObject } from '../../models/db-object';
 
 @Injectable()
-export abstract class BaseDbAccessService<T extends IDbObject> {
+export abstract class BaseDbAccessService<T extends DbObject> {
 
     constructor(private _db: IndexedDbService) {
     }

@@ -28,6 +28,8 @@ export class CheckpointLocationDetailsComponent implements OnInit, AfterViewInit
     private createForm() {
         this.form = this._formBuilder.group({
             _id: new FormControl({ value: '', disabled: true }),
+            _createdOn: new FormControl({value: '', disabled: true}),
+            _lastModifiedOn: new FormControl({value: '', disabled: true}),
             name: ['', Validators.required],
             location: this._formBuilder.group({
                 latitude: '',
